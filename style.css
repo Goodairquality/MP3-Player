@@ -1,0 +1,10 @@
+body {
+    background-color: black;
+
+    color: white;
+}
+
+#musicArt {
+    width: 20vh;
+    aspect-ratio: 1/1;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet"></link>
+    <title>Document</title>
+</head>
+<body>
+    
+    <input id="musicInput" type="file" accept="audio.mp3" multiple>
+    <audio id="player" controls></audio>
+    <img id="musicArt">
+    <p id="songTitle"></p>
+    <p id="artistName"></p>
+
+
+    <button id="backButton" type="button">back</button>
+    <button id="playButton" type="button">play</button>
+    <button id="nextButton" type="button">next</button>
+    <button id="pausePlayButton" class="play" type="button">Play</button>
+    <input id="timeSlider" type="range" min="0" max="">
+    <p id="num"></p>
+
+    
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+</body>
+</html>
