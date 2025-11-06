@@ -38,6 +38,7 @@ input.addEventListener('change', (e) => {
             }
             
                 songsList.push(song);
+                renderListItems();
             }
         },
         onError: (error) => {
@@ -49,17 +50,65 @@ input.addEventListener('change', (e) => {
     
 });
 
+const songsUl = document.getElementById("songsUl");
+
+function renderListItems() {
+    songsUl.innerHTML = "";
+    songsList.forEach(song => {
+        const htmlPreset = `<li>
+                    <div class="songLIDiv">
+                        <button class="delButton">✖</button>
+                        <p>${song.title}</p>
+                    </div>
+                </li>`
+        songsUl.innerHTML = songsUl.innerHTML + htmlPreset;
+        
+    });
+
+    document.querySelectorAll(".delButton").forEach((item, index) => {
+        item.addEventListener("click", ()=>{
+            e.stopPropagation();
+            songsList.splice(index, 1);
+            renderListItems();
+        })
+});
+
+    document.querySelectorAll(".songLIDiv").forEach((item, iindex) => {
+        item.addEventListener("click", () => {
+            if (first === true) {
+                first = false;
+            }
+            
+            index = iindex;
+            loadArtistData(iindex);
+            setPausePlayState();
+
+            timeSlider.value = 0;
+            player.addEventListener("loadedmetadata", getSongLength);
+        })
+});
+}
+
+
+
+
+
 const backButton = document.getElementById("backButton");
-const playButton = document.getElementById("playButton");
+// const playButton = document.getElementById("playButton");
 const nextButton = document.getElementById("nextButton")
 
 const pausePlayButton = document.getElementById("pausePlayButton");
 const timeSlider = document.getElementById("timeSlider");
+const volSlider = document.getElementById("volSlider");
 const num = document.getElementById("num");
 
 
 let index = 0;
 let songLength = 0;
+
+timeSlider.value = 0;
+let first = true;
+let shuffle = true;
 
 // Prereqs
 function getSongLength(){
@@ -73,8 +122,30 @@ function loadArtistData(ind) {
     player.src = songsList[ind].fileSrc;
     titleDisplay.innerHTML = songsList[ind].title;
     artistDisplay.innerHTML = songsList[ind].artist;
+    player.play();
 }
 
+function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+
+// function getRandomSong(ind) {
+//     if (songsList.length === 0) return;
+
+//     let ranIndex = getRandomInt(songsList.length);
+
+//     while (ranIndex ===  ind) {
+//         if (ranIndex === songsList.length - 1) {
+//             ranIndex = 0;
+
+//         } else if (ranIndex === 0) {
+//             ranIndex = ranIndex + 1;
+//         }
+//     }
+
+//     loadArtistData(ranIndex);
+// }
 
 // Playlist control buttons
 backButton.addEventListener("click", () => {
@@ -86,26 +157,59 @@ backButton.addEventListener("click", () => {
         index -= 1;
     }
 
+    // if (shuffle === true) {
+    //     getRandomSong(index);
+    // } else {
+    //     loadArtistData(index);
+    // }
+
     loadArtistData(index);
+
     setPausePlayState();
     
     timeSlider.value = 0;
     player.addEventListener("loadedmetadata", getSongLength);
 
-    player.play();
+    // player.play();
 })
 
-playButton.addEventListener("click", () => {
-    if (songsList.length === 0) return;
 
-    loadArtistData(index);
-    setPausePlayState();
+// Pause Play control
+pausePlayButton.addEventListener("click", ()=>{
+    if (first === true) {
+        if (songsList.length === 0) return;
+        first = false;
 
-    timeSlider.value = 0;
-    player.addEventListener("loadedmetadata", getSongLength);
+        // if (shuffle === true) {
+        //     getRandomSong(index);
+        // } else {
+        //     loadArtistData(index);
+        // }
 
-    player.play();
+        loadArtistData(index);
+        
+        setPausePlayState();
+
+        timeSlider.value = 0;
+        player.addEventListener("loadedmetadata", getSongLength);
+
+        // player.play();
+
+    } else if (pausePlayButton.classList.contains("play")) {
+        player.play();
+        pausePlayButton.classList.remove("play");
+        pausePlayButton.classList.add("pause");
+
+        pausePlayButton.innerHTML = "❚❚";
+    } else if (pausePlayButton.classList.contains("pause")) {
+        player.pause();
+        pausePlayButton.classList.remove("pause");
+        pausePlayButton.classList.add("play");
+
+        pausePlayButton.innerHTML = "▶";
+    }
 })
+
 
 nextButton.addEventListener("click", () => {
     if (songsList.length === 0) return;
@@ -116,13 +220,20 @@ nextButton.addEventListener("click", () => {
         index += 1;
     }
 
+    // if (shuffle === true) {
+    //     getRandomSong(index);
+    // } else {
+    //     loadArtistData(index);
+    // }
+
     loadArtistData(index);
+
     setPausePlayState();
 
     timeSlider.value = 0;
     player.addEventListener("loadedmetadata", getSongLength);
 
-    player.play();
+    // player.play();
 })
 
 
@@ -140,26 +251,29 @@ player.ontimeupdate = function() {
     }
 }
 
-
-// Pause Play control
-pausePlayButton.addEventListener("click", ()=>{
-    if (pausePlayButton.classList.contains("play")) {
-        player.play();
-        pausePlayButton.classList.remove("play");
-        pausePlayButton.classList.add("pause");
-
-        pausePlayButton.innerHTML = "pause";
-    } else if (pausePlayButton.classList.contains("pause")) {
-        player.pause();
-        pausePlayButton.classList.remove("pause");
-        pausePlayButton.classList.add("play");
-
-        pausePlayButton.innerHTML = "play";
-    }
+volSlider.addEventListener("input", () => {
+    player.volume = volSlider.value;
 })
 
+player.onvolumechange = function() {
+    volSlider.value = player.volume
+}
+
 function setPausePlayState() {
-    pausePlayButton.innerHTML = "pause";
+    pausePlayButton.innerHTML = "❚❚";
     pausePlayButton.classList.remove("play");
     pausePlayButton.classList.add("pause");
 }
+
+
+// playButton.addEventListener("click", () => {
+//     if (songsList.length === 0) return;
+
+//     loadArtistData(index);
+//     setPausePlayState();
+
+//     timeSlider.value = 0;
+//     player.addEventListener("loadedmetadata", getSongLength);
+
+//     player.play();
+// })

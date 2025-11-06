@@ -1,10 +1,165 @@
 body {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(255, 255, 255);
+}
 
+#main {
+    display: flex;
+    justify-content: center;
+    padding-top:20vh;
+    height: 47.5vh;
+    max-width: 120vw;
+    margin: auto;
+
+}
+
+#musicInput {
+    background: rgba(255, 255, 255, 0.428); 
+    /* backdrop-filter:blur(.5vh); */
+}
+
+#sideNav {
+    border: .2vh solid white;
+    margin-right: 2vw;
+    overflow: hidden;
+    scrollbar-width:none;
+    overflow-y: auto;
+    width: 40vh;
+    min-width: 10vh;
+}
+
+#songsUl {
+    list-style:none;
+    padding: 0vh;
+    margin: auto;
+}
+
+#songsUl li{
+    margin: 1vh;
+}
+
+.songLIDiv {
+    border: .2vh white solid;
+    border-radius: .5vh;
+    display: flex;
+    padding: 1vh;
+    height: 6vh;
+}
+
+.songLIDiv p{
+    padding-left: 1vh;
+    font-size: clamp(1vh, 2vh, 3vh); /*CLAMP HERE*/
+}
+
+.songLIDiv p:hover{
+    cursor: pointer;
+}
+
+.songLIDiv button{
+    border-radius: .5vh;
+    border: .2vh white solid;
+    background:none;
     color: white;
+    font-weight: bold;
+    transition: all 0.1s ease-in;
+}
+
+#sideNav li p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+#player {
+    display: none;
+}
+
+#musicInfoDiv{
+    margin: auto;
+    padding: none;
+    text-align: center;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    border: .1vh solid rgb(255, 255, 255);
+    border-radius: 1vh;
+    text-align: center;
+    padding: 1.5vh;
+    margin:auto;
+    width: fit-content;
+    height: 10vh;
+    font-size: clamp(1vh, 2vh, 4vh);
+}
+
+#sliders{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 50vh;
+}
+
+#sliders #timeSlider{
+    height: .8vh;
+    margin-top: 1vh;
+    width: 50vh;
+}
+
+#sliders #volSlider{
+    height: .8vh;
+    margin-top: 1vh;    
+    width: 10vh;
 }
 
 #musicArt {
-    width: 20vh;
+    width: clamp(16vh, 24vh, 30vh);  
     aspect-ratio: 1/1;
+    max-width: 400px;
+}
+
+.ppbutton {
+    background: none;
+    height: 4vh;
+    width: 4vh;
+    text-align: center;
+    justify-content: center;
+    border: .3vh solid rgb(255, 255, 255);
+    color: white;
+    border-radius: 1vh;
+}
+
+.moveButtons {
+    background: none;
+    justify-content: center;
+    height: 4vh;
+    width: 7vh;
+    padding: 0vh;
+    margin: 0vh;
+    border: .3vh solid rgb(255, 255, 255);
+    color: white;
+    border-radius: 1vh;
+    transition: all 0.1s ease-in;
+}
+
+.moveButtons:hover, .ppbutton:hover, .songLIDiv button:hover{
+    background: rgb(255, 255, 255);
+    filter: drop-shadow(0 0 .5vh rgb(255, 255, 255));
+    transform: scale(1.08);
+    color: rgb(0, 0, 0);
+}
+
+@media (max-width: 1366px) {
+    #main {
+        padding-top: 5vh;
+        height: 70vh;
+    }
+    
+    #sideNav {
+        min-width: 15vh;
+    }
+    
 }

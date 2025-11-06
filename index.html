@@ -8,19 +8,50 @@
 </head>
 <body>
     
-    <input id="musicInput" type="file" accept="audio.mp3" multiple>
+    
+
     <audio id="player" controls></audio>
-    <img id="musicArt">
-    <p id="songTitle"></p>
-    <p id="artistName"></p>
-
-
-    <button id="backButton" type="button">back</button>
-    <button id="playButton" type="button">play</button>
-    <button id="nextButton" type="button">next</button>
-    <button id="pausePlayButton" class="play" type="button">Play</button>
-    <input id="timeSlider" type="range" min="0" max="">
-    <p id="num"></p>
+<div id="main">
+    <div id="sideNav">
+        <div><input id="musicInput" type="file" accept="audio.mp3" multiple></div>
+        <div>
+            <ul id="songsUl">
+                <li>
+                    <div class="songLIDiv">
+                        <button class="delButton">✖</button>
+                        <p>SONG NAME HERE</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="songLIDiv">
+                        <button class="delButton">✖</button>
+                        <p>SONG NAME HERE</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+        <div id="musicNav">
+            <div id="musicInfoDiv">
+                <img id="musicArt">
+                <p id="songTitle">SONG NAME</p>
+                <p id="artistName">ARTISTS NAME</p>
+            </div>
+            <div id="controls">
+                <div>
+                    <button id="backButton" class="moveButtons" type="button">◀◀</button>
+                    <button id="pausePlayButton" class="ppbutton play" type="button">▶</button>
+                    <!-- <button id="playButton" type="button">play</button> -->
+                    <button id="nextButton" class="moveButtons" type="button">▶▶</button>
+                </div>
+                <div id="sliders">
+                    <input id="timeSlider" type="range" min="0" max="">
+                    <input id="volSlider" type="range" min="0" max="1" step=".01">
+                </div>
+            </div>
+        </div>
+</div>
 
     
 
