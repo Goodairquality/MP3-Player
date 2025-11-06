@@ -67,7 +67,6 @@ function renderListItems() {
 
     document.querySelectorAll(".delButton").forEach((item, index) => {
         item.addEventListener("click", ()=>{
-            e.stopPropagation();
             songsList.splice(index, 1);
             renderListItems();
         })
@@ -113,7 +112,7 @@ let shuffle = true;
 // Prereqs
 function getSongLength(){
     songLength = player.duration
-    num.innerHTML = songLength;
+    // num.innerHTML = songLength;
     timeSlider.max = songLength;
 }
 
@@ -122,6 +121,10 @@ function loadArtistData(ind) {
     player.src = songsList[ind].fileSrc;
     titleDisplay.innerHTML = songsList[ind].title;
     artistDisplay.innerHTML = songsList[ind].artist;
+
+    player.removeEventListener("loadedmetadata", getSongLength);
+    player.addEventListener("loadedmetadata", getSongLength);
+
     player.play();
 }
 
@@ -245,10 +248,10 @@ timeSlider.addEventListener("input", () => {
 
 player.ontimeupdate = function() {
     timeSlider.value = player.currentTime
+}
 
-    if (player.currentTime == songLength) {
-        nextButton.click();
-    }
+player.onended = function() {
+    nextButton.click();
 }
 
 volSlider.addEventListener("input", () => {
