@@ -1,3 +1,7 @@
+:root{
+    --title-size: 
+}
+
 body {
     background-color: rgb(0, 0, 0);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -7,26 +11,36 @@ body {
 #main {
     display: flex;
     justify-content: center;
-    padding-top:20vh;
-    height: 47.5vh;
-    max-width: 120vw;
+    height: 55vh;
+    max-width: fit-content;
     margin: auto;
+    position: absolute;
 
-}
-
-#musicInput {
-    background: rgba(255, 255, 255, 0.428); 
-    /* backdrop-filter:blur(.5vh); */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    padding: 1vh;
 }
 
 #sideNav {
     border: .2vh solid white;
-    margin-right: 2vw;
+    border-radius: 1vh;
+    margin: auto;
+    margin-left: 1vh;
     overflow: hidden;
     scrollbar-width:none;
+    overflow: hidden;
     overflow-y: auto;
     width: 40vh;
+    height: 100%;
     min-width: 10vh;
+}
+
+#musicInput {
+    background: rgba(255, 255, 255, 0); 
+    width: 100%;
+    /* backdrop-filter:blur(.5vh); */
 }
 
 #songsUl {
@@ -74,6 +88,10 @@ body {
 
 #player {
     display: none;
+}
+
+#musicNav {
+    margin: auto;
 }
 
 #musicInfoDiv{
@@ -152,14 +170,51 @@ body {
     color: rgb(0, 0, 0);
 }
 
-@media (max-width: 1366px) {
+@media(width < 700px){
     #main {
-        padding-top: 5vh;
+        flex-direction: column;
+        justify-content: center;
         height: 70vh;
     }
-    
+
     #sideNav {
-        min-width: 15vh;
+        height: fit-content;
+        margin: auto;
+        margin-top: 1vh;
+        width: 99%;
+        height: 20vh;
     }
-    
 }
+
+@media(width < 400px){
+    #main {
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    #sideNav {
+        height: fit-content;
+        margin: auto;
+        margin-top: 1vh;
+        width: 99%;
+        height: 20vh;
+    }
+
+    #controls {
+        padding: 1vh;
+        margin:auto;
+        width: 93%;
+        font-size: clamp(1vh, 2vh, 4vh);
+    }
+
+    #sliders{
+        width: 100%;
+    }
+
+    #sliders #timeSlider{
+        width: 90%;
+    }
+}
+
+ 
